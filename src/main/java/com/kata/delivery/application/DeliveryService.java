@@ -10,6 +10,7 @@ import com.kata.delivery.domain.DeliveryMode;
 import com.kata.delivery.domain.DeliveryRepository;
 import com.kata.delivery.domain.Timeslot;
 import com.kata.delivery.domain.TimeslotRepository;
+import com.kata.delivery.application.exception.TimeslotUnavailableException;
 import com.kata.delivery.application.mapper.DeliveryDtoMapper;
 import com.kata.delivery.application.mapper.TimeslotDtoMapper;
 import com.kata.delivery.exposition.dto.DeliveryDto;
@@ -29,9 +30,19 @@ public class DeliveryService {
                 .map(timeslotMapper::toDto);
     }
 
+    public Mono<TimeslotDto> addTimeslot(TimeslotDto timeslotDto) {
+        Timeslot timeslot = timeslotMapper.toVo(timeslotDto);
+        return timeslotRepository.save(timeslot)
+                .map(timeslotMapper::toDto);
+    }
+
     public Mono<DeliveryDto> book(DeliveryRequest request) {
-        Delivery delivery = deliveryMapper.toVo(request);
-        return deliveryRepository.save(delivery)
-                .map(deliveryMapper::toDto);
+        return timeslotRepository.findById(request.getTimeslotId())
+                .switchIfEmpty(Mono.error(new TimeslotUnavailableException("Timeslot not available")))
+                .flatMap(ts -> {
+                    Delivery delivery = deliveryMapper.toVo(request);
+                    return deliveryRepository.save(delivery)
+                            .map(deliveryMapper::toDto);
+                });
     }
 }
