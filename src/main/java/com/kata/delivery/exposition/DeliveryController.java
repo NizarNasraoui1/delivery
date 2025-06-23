@@ -27,6 +27,11 @@ public class DeliveryController {
         return service.availableTimeslots(mode, date);
     }
 
+    @PostMapping("/timeslots")
+    public Mono<TimeslotDto> addTimeslot(@RequestBody TimeslotDto timeslot) {
+        return service.addTimeslot(timeslot);
+    }
+
     @PostMapping("/deliveries")
     public Mono<DeliveryDto> book(@RequestBody DeliveryRequest request) {
         return service.book(request);
