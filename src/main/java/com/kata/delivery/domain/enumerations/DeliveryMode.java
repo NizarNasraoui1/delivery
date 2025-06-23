@@ -1,4 +1,4 @@
-package com.kata.delivery.domain;
+package com.kata.delivery.domain.enumerations;
 
 public enum DeliveryMode {
     DRIVE,

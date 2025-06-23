@@ -1,30 +1,30 @@
-package com.kata.delivery.application.mapper;
+package com.kata.delivery.application.mappers;
 
 import org.springframework.stereotype.Component;
-import com.kata.delivery.domain.Delivery;
+import com.kata.delivery.domain.entities.DeliveryVo;
 import com.kata.delivery.exposition.dto.DeliveryDto;
 import com.kata.delivery.exposition.dto.DeliveryRequest;
 
 @Component
 public class DeliveryDtoMapper {
-    public DeliveryDto toDto(Delivery vo) {
+    public DeliveryDto toDto(DeliveryVo vo) {
         if (vo == null) {
             return null;
         }
         return new DeliveryDto(vo.getId(), vo.getTimeslotId(), vo.getClient());
     }
 
-    public Delivery toVo(DeliveryDto dto) {
+    public DeliveryVo toVo(DeliveryDto dto) {
         if (dto == null) {
             return null;
         }
-        return new Delivery(dto.getId(), dto.getTimeslotId(), dto.getClient());
+        return new DeliveryVo(dto.getId(), dto.getTimeslotId(), dto.getClient());
     }
 
-    public Delivery toVo(DeliveryRequest request) {
+    public DeliveryVo toVo(DeliveryRequest request) {
         if (request == null) {
             return null;
         }
-        return new Delivery(null, request.getTimeslotId(), request.getClient());
+        return new DeliveryVo(null, request.getTimeslotId(), request.getClient());
     }
 }

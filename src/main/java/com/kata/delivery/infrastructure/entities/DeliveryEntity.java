@@ -1,4 +1,4 @@
-package com.kata.delivery.infrastructure.entity;
+package com.kata.delivery.infrastructure.entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;

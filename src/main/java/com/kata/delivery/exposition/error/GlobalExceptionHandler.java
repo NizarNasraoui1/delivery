@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Mono<ErrorDto> handleException(Exception ex) {
-        return Mono.just(new ErrorDto(ex.getMessage()));
+        return Mono.just(new ErrorDto(HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 }
