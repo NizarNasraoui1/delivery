@@ -23,6 +23,7 @@ import com.kata.delivery.domain.repositories.TimeslotCrudService;
 import com.kata.delivery.exposition.dto.DeliveryRequest;
 
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 public class DeliveryVoServiceTest {
@@ -62,6 +63,28 @@ public class DeliveryVoServiceTest {
 
         StepVerifier.create(service.book(request))
             .expectNextMatches(d -> d.getId() == 10L)
+            .verifyComplete();
+    }
+
+    @Test
+    void getAvailableTimeslotsShouldReturnDtos() {
+        TimeslotVo slot = new TimeslotVo(1L, DeliveryMode.DELIVERY, LocalDate.now(), LocalTime.NOON, LocalTime.NOON.plusHours(1));
+        when(timeslotCrudService.findByModeAndDate(DeliveryMode.DELIVERY, slot.getDate())).thenReturn(Flux.just(slot));
+
+        StepVerifier.create(service.getAvailableTimeslots(DeliveryMode.DELIVERY, slot.getDate()))
+            .expectNextMatches(dto -> dto.getId().equals(slot.getId()))
+            .verifyComplete();
+    }
+
+    @Test
+    void addTimeslotShouldReturnSavedDto() {
+        TimeslotDtoMapper mapper = new TimeslotDtoMapper();
+        TimeslotVo slot = new TimeslotVo(null, DeliveryMode.DELIVERY, LocalDate.now(), LocalTime.NOON, LocalTime.NOON.plusHours(1));
+        TimeslotVo saved = new TimeslotVo(1L, slot.getMode(), slot.getDate(), slot.getStartTime(), slot.getEndTime());
+        when(timeslotCrudService.save(slot)).thenReturn(Mono.just(saved));
+
+        StepVerifier.create(service.addTimeslot(mapper.toDto(slot)))
+            .expectNextMatches(dto -> dto.getId() == 1L)
             .verifyComplete();
     }
 }
