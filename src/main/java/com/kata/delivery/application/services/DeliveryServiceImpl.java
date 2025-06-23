@@ -16,6 +16,7 @@ import com.kata.delivery.application.mappers.TimeslotDtoMapper;
 import com.kata.delivery.exposition.dto.DeliveryDto;
 import com.kata.delivery.exposition.dto.DeliveryRequest;
 import com.kata.delivery.exposition.dto.TimeslotDto;
+import com.kata.delivery.infrastructure.kafka.DeliveryEventProducer;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final DeliveryCrudService deliveryCrudService;
     private final TimeslotDtoMapper timeslotMapper;
     private final DeliveryDtoMapper deliveryMapper;
+    private final DeliveryEventProducer eventProducer;
 
     public Flux<TimeslotDto> getAvailableTimeslots(DeliveryMode mode, LocalDate date) {
         return timeslotCrudService.findByModeAndDate(mode, date)
@@ -42,7 +44,8 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .flatMap(ts -> {
                     DeliveryVo deliveryVo = deliveryMapper.toVo(request);
                     return deliveryCrudService.save(deliveryVo)
-                            .map(deliveryMapper::toDto);
+                            .map(deliveryMapper::toDto)
+                            .doOnNext(dto -> eventProducer.sendDeliveryBooked(dto.getTimeslotId()));
                 });
     }
 }

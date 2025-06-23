@@ -35,4 +35,9 @@ public class TimeslotCrudServiceImpl implements TimeslotCrudService {
         return springRepository.save(mapper.toEntity(timeslotVo))
                 .map(mapper::toVo);
     }
+
+    @Override
+    public Mono<Void> deleteById(Long id) {
+        return springRepository.deleteById(id);
+    }
 }
