@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
-public class DeliveryVoServiceTest {
+public class DeliveryServiceTest {
 
     @Mock
     private TimeslotCrudService timeslotCrudService;
