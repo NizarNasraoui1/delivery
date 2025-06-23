@@ -1,18 +1,16 @@
-package com.kata.delivery.domain;
+package com.kata.delivery.exposition.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import com.kata.delivery.domain.DeliveryMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Timeslot value object used in the domain layer.
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Timeslot {
+public class TimeslotDto {
     private Long id;
     private DeliveryMode mode;
     private LocalDate date;

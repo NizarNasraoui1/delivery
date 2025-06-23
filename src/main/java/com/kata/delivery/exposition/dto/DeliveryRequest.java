@@ -1,8 +1,5 @@
-package com.kata.delivery.domain;
+package com.kata.delivery.exposition.dto;
 
-/**
- * Delivery value object used inside the domain layer.
- */
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Delivery {
-    private Long id;
+public class DeliveryRequest {
     private Long timeslotId;
     private String client;
 }
