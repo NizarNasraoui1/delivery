@@ -15,8 +15,6 @@ The project includes a `docker-compose.yaml` file with Kafka and Zookeeper servi
 docker-compose up -d
 ```
 
-This will launch Kafka on port `9092` and Zookeeper on port `2181`.
-
 ## Running the Application
 
 Use the Maven wrapper to start the Spring Boot application:
