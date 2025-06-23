@@ -22,15 +22,6 @@ This will launch Kafka on port `9092` and Zookeeper on port `2181`.
 Use the Maven wrapper to start the Spring Boot application:
 
 ```bash
-./mvnw spring-boot:run
-```
-
-Alternatively, build a jar and run it manually:
-
-```bash
-./mvnw clean package
 java -jar target/delivery-0.0.1-SNAPSHOT.jar
 ```
-
-The application starts on port `8080` by default.
 
