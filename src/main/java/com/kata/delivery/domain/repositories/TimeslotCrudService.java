@@ -14,4 +14,6 @@ public interface TimeslotCrudService {
     Mono<TimeslotVo> findById(Long id);
 
     Mono<TimeslotVo> save(TimeslotVo timeslotVo);
+
+    Mono<Void> deleteById(Long id);
 }

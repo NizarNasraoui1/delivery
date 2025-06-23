@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import com.kata.delivery.infrastructure.kafka.DeliveryEventProducer;
 
 import com.kata.delivery.application.exception.TimeslotUnavailableException;
 import com.kata.delivery.application.mappers.DeliveryDtoMapper;
@@ -30,13 +31,15 @@ public class DeliveryVoServiceTest {
     private TimeslotCrudService timeslotCrudService;
     @Mock
     private DeliveryCrudService deliveryCrudService;
+    @Mock
+    private DeliveryEventProducer eventProducer;
 
     private DeliveryServiceImpl service;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        service = new DeliveryServiceImpl(timeslotCrudService, deliveryCrudService, new TimeslotDtoMapper(), new DeliveryDtoMapper());
+        service = new DeliveryServiceImpl(timeslotCrudService, deliveryCrudService, new TimeslotDtoMapper(), new DeliveryDtoMapper(), eventProducer);
     }
 
     @Test
