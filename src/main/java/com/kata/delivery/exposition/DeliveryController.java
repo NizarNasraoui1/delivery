@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.kata.delivery.domain.enumerations.DeliveryMode;
 import com.kata.delivery.exposition.dto.DeliveryDto;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 import com.kata.delivery.exposition.dto.TimeslotDto;
 
 @RestController
@@ -34,7 +34,7 @@ public class DeliveryController {
     }
 
     @PostMapping("/deliveries")
-    public Mono<DeliveryDto> book(@RequestBody DeliveryRequest request) {
+    public Mono<DeliveryDto> book(@RequestBody DeliveryRequestDTO request) {
         return service.book(request);
     }
 }

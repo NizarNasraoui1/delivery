@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.kata.delivery.application.services.DeliveryServiceImpl;
+import com.kata.delivery.application.services.impl.DeliveryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,7 +20,7 @@ import com.kata.delivery.domain.repositories.DeliveryCrudService;
 import com.kata.delivery.domain.enumerations.DeliveryMode;
 import com.kata.delivery.domain.entities.TimeslotVo;
 import com.kata.delivery.domain.repositories.TimeslotCrudService;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
@@ -45,7 +45,7 @@ public class DeliveryServiceTest {
 
     @Test
     void bookShouldFailWhenTimeslotMissing() {
-        DeliveryRequest request = new DeliveryRequest(1L, "client");
+        DeliveryRequestDTO request = new DeliveryRequestDTO(1L, "client");
         when(timeslotCrudService.findById(1L)).thenReturn(Mono.empty());
 
         StepVerifier.create(service.book(request))
@@ -55,7 +55,7 @@ public class DeliveryServiceTest {
 
     @Test
     void bookShouldSucceedWhenTimeslotExists() {
-        DeliveryRequest request = new DeliveryRequest(1L, "client");
+        DeliveryRequestDTO request = new DeliveryRequestDTO(1L, "client");
         TimeslotVo slot = new TimeslotVo(1L, DeliveryMode.DELIVERY, LocalDate.now(), LocalTime.NOON, LocalTime.NOON.plusHours(1));
         when(timeslotCrudService.findById(1L)).thenReturn(Mono.just(slot));
         DeliveryVo deliveryVo = new DeliveryVo(null, 1L, "client");

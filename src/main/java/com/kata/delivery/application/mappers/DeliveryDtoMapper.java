@@ -3,7 +3,7 @@ package com.kata.delivery.application.mappers;
 import org.springframework.stereotype.Component;
 import com.kata.delivery.domain.entities.DeliveryVo;
 import com.kata.delivery.exposition.dto.DeliveryDto;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 
 @Component
 public class DeliveryDtoMapper {
@@ -21,7 +21,7 @@ public class DeliveryDtoMapper {
         return new DeliveryVo(dto.getId(), dto.getTimeslotId(), dto.getClient());
     }
 
-    public DeliveryVo toVo(DeliveryRequest request) {
+    public DeliveryVo toVo(DeliveryRequestDTO request) {
         if (request == null) {
             return null;
         }

@@ -2,7 +2,7 @@ package com.kata.delivery.application.mappers;
 
 import com.kata.delivery.domain.entities.DeliveryVo;
 import com.kata.delivery.exposition.dto.DeliveryDto;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +24,7 @@ class DeliveryDtoMapperTest {
 
     @Test
     void toVoFromRequest() {
-        DeliveryRequest request = new DeliveryRequest(3L, "cli");
+        DeliveryRequestDTO request = new DeliveryRequestDTO(3L, "cli");
         DeliveryVo vo = mapper.toVo(request);
         assertNull(vo.getId());
         assertEquals(request.getTimeslotId(), vo.getTimeslotId());

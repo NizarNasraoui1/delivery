@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeliveryRequest {
+public class DeliveryRequestDTO {
     private Long timeslotId;
     private String client;
 }

@@ -1,6 +1,8 @@
-package com.kata.delivery.application.services;
+package com.kata.delivery.application.services.impl;
 
 import java.time.LocalDate;
+
+import com.kata.delivery.application.services.DeliveryService;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -14,7 +16,7 @@ import com.kata.delivery.application.exception.TimeslotUnavailableException;
 import com.kata.delivery.application.mappers.DeliveryDtoMapper;
 import com.kata.delivery.application.mappers.TimeslotDtoMapper;
 import com.kata.delivery.exposition.dto.DeliveryDto;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 import com.kata.delivery.exposition.dto.TimeslotDto;
 import com.kata.delivery.infrastructure.kafka.DeliveryEventProducer;
 
@@ -38,7 +40,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .map(timeslotMapper::toDto);
     }
 
-    public Mono<DeliveryDto> book(DeliveryRequest request) {
+    public Mono<DeliveryDto> book(DeliveryRequestDTO request) {
         return timeslotCrudService.findById(request.getTimeslotId())
                 .switchIfEmpty(Mono.error(new TimeslotUnavailableException("Timeslot not available")))
                 .flatMap(ts -> {

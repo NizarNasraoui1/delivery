@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Timeslot value object used in the domain layer.
- */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

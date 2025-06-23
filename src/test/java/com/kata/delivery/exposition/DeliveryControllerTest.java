@@ -3,7 +3,7 @@ package com.kata.delivery.exposition;
 import com.kata.delivery.application.services.DeliveryService;
 import com.kata.delivery.domain.enumerations.DeliveryMode;
 import com.kata.delivery.exposition.dto.DeliveryDto;
-import com.kata.delivery.exposition.dto.DeliveryRequest;
+import com.kata.delivery.exposition.dto.DeliveryRequestDTO;
 import com.kata.delivery.exposition.dto.TimeslotDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,7 @@ class DeliveryControllerTest {
 
     @Test
     void bookShouldReturnMonoFromService() {
-        DeliveryRequest request = new DeliveryRequest(1L, "client");
+        DeliveryRequestDTO request = new DeliveryRequestDTO(1L, "client");
         DeliveryDto result = new DeliveryDto(5L, 1L, "client");
         when(service.book(request)).thenReturn(Mono.just(result));
 
